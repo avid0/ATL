@@ -43,7 +43,6 @@ class SentMessage extends \stdClass {
         return $this->atl->editMessageCaption($this->chat->id, $this->message_id, $caption, $datas, $request);
     }
 
-    
     /**
      * @method appendText
      * @param string $text
@@ -112,7 +111,7 @@ class SentMessage extends \stdClass {
      * @param int $request = default
      * @return object
      */
-    public function answerForward($chat, array $datas = array(), int $request = 0){
+    public function answerForward(array $datas = array(), int $request = 0){
         return $this->atl->answerForwardMessage($this->chat->id, $this->message_id, $datas, $request);
     }
     
@@ -128,12 +127,12 @@ class SentMessage extends \stdClass {
     }
     
     /**
-     * @method answerCopy
+     * @method resend
      * @param array $datas = array()
      * @param int $request = default
      * @return object
      */
-    public function answerCopy($chat, array $datas = array(), int $request = 0){
+    public function resend(array $datas = array(), int $request = 0){
         return $this->atl->answerCopyMessage($this->chat->id, $this->message_id, $datas, $request);
     }
 
@@ -145,6 +144,18 @@ class SentMessage extends \stdClass {
      */
     public function delete(array $datas = array(), int $request = 0){
         return $this->atl->deleteMessage($this->chat->id, $this->message_id, $datas, $request);
+    }
+
+    /**
+     * @method reply
+     * @param string $text
+     * @param array $datas = array()
+     * @param int $request = default
+     * @return object
+     */
+    public function reply($text, array $datas = array(), int $request = 0){
+        $datas['reply'] = $this->message_id;
+        return $this->atl->sendMessage($this->chat->id, $text, $datas, $request);
     }
 }
 ?>
